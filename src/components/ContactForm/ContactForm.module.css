@@ -1,0 +1,24 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 400px;
+  margin: 0 auto 20px;
+  padding: 20px;
+
+  border: 1px solid #000;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.inputField {
+  margin-bottom: 15px;
+}
+
+.button {
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,14 @@
+.contactItem {
+  margin: 5px auto;
+}
+
+.contactText {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.button {
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+}
