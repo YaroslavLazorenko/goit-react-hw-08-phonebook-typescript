@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import Button from '@mui/material/Button';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
 import styles from './ContactItem.module.css';
 
-type Props = {
+interface ContactItemProps {
     contact: {
         id: string,
         name: string,
@@ -11,9 +11,9 @@ type Props = {
     }
 }
 
-const ContactItem: React.FC<Props> = ({ contact: {id, name, number} }) => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(phonebookSelectors.getLoadingStatus);
+const ContactItem: React.FC<ContactItemProps> = ({ contact: {id, name, number} }) => {
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(phonebookSelectors.getLoadingStatus);
 
   return (
     <li className={styles.contactItem}>

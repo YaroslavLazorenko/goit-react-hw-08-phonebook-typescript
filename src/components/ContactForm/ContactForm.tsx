@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from 'hooks';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
@@ -8,14 +8,14 @@ import styles from './ContactForm.module.css';
 
 const INITIAL_FORM_LOCAL_STATE = { name: '', number: '' };
 
-const ContactForm = () => {
+const ContactForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [number, setNumber] = useState<string>('');
 
-  const contacts = useSelector(phonebookSelectors.getContactsItems);
-  const isLoading = useSelector(phonebookSelectors.getLoadingStatus);
+  const contacts = useAppSelector(phonebookSelectors.getContactsItems);
+  const isLoading = useAppSelector(phonebookSelectors.getLoadingStatus);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChange = ({ target}: React.ChangeEvent<HTMLInputElement>):void => {
     const { name, value } = target;
@@ -84,6 +84,7 @@ const ContactForm = () => {
         type="tel"
         name="number"
         inputProps={{
+          // eslint-disable-next-line no-useless-escape
           pattern: "\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}",
         }}
         placeholder="Enter phone"

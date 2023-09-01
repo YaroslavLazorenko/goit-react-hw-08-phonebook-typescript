@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from 'redux/store';
 
 export const getContactsItems = state => state.contacts.items;
 
