@@ -8,7 +8,6 @@ export const fetchContacts = createAsyncThunk<IContact[], void, { rejectValue: s
   'phonebook/fetchContacts',
   async (_, { getState, rejectWithValue }) => {
     try {
-      // @ts-ignor
       const token = getState().auth.token as string; // add as string due to unresolved error on getState type when createAsyncThunk<,,{state: RootState}>
       const contacts = await phonebookApi.fetchContacts(token);
       return contacts as IContact[];
