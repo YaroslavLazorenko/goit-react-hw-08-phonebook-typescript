@@ -75,8 +75,7 @@ const authSlice = createSlice({
       .addCase(refreshUser.rejected, (state, { payload }) => {
         state.isRefreshingUser = false;
         state.error = payload;
-      })
-      .addDefaultCase((_, __) => {});
+      });
   },
 });
 
