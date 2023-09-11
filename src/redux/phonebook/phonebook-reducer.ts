@@ -2,9 +2,17 @@ import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import * as actions from './phonebook-actions';
 import { fetchContacts, postContact, deleteContact } from './phonebook-operations';
+import { IContact } from 'types';
 
-const initialItemsState = [];
-const initialFilterState = '';
+type ItemsState = IContact[] | [];
+type FilterState = string;
+type IsLoadingState = boolean;
+type ErrorState = unknown | null;
+
+const initialItemsState: ItemsState = [];
+const initialFilterState: FilterState = '';
+const initialIsLoadingState: IsLoadingState = false;
+const initialErrorState: ErrorState = null;
 
 const itemsReducer = createReducer(initialItemsState, builder => {
   builder
@@ -19,7 +27,7 @@ const filterReducer = createReducer(initialFilterState, builder => {
   builder.addCase(actions.changeFilter, (_, { payload }) => payload);
 });
 
-const isLoadingReducer = createReducer(false, builder => {
+const isLoadingReducer = createReducer(initialIsLoadingState, builder => {
   builder
     .addCase(fetchContacts.pending, () => true)
     .addCase(fetchContacts.fulfilled, () => false)
@@ -32,7 +40,7 @@ const isLoadingReducer = createReducer(false, builder => {
     .addCase(deleteContact.rejected, () => false);
 });
 
-const errorReducer = createReducer(null, builder => {
+const errorReducer = createReducer(initialErrorState, builder => {
   builder
     .addCase(fetchContacts.rejected, (_, { payload }) => payload)
     .addCase(fetchContacts.pending, () => null)

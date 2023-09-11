@@ -24,3 +24,5 @@ export interface IAuthFetchingData {
   user: { name: string | null; email: string | null };
   token: string | null;
 }
+
+export type RejectValueType = string | null;

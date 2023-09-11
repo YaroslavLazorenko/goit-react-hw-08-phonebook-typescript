@@ -2,12 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from 'redux/store';
 import * as phonebookApi from 'services/phonebook-api';
-import { IRegisterCredentials, ILoginCredentials, IAuthFetchingData } from 'types';
+import { IRegisterCredentials, ILoginCredentials, IAuthFetchingData, RejectValueType } from 'types';
 
 export const register = createAsyncThunk<
   IAuthFetchingData,
   IRegisterCredentials,
-  { rejectValue: string | null }
+  { rejectValue: RejectValueType }
 >('auth/register', async (credentials: IRegisterCredentials, { rejectWithValue }) => {
   try {
     const data = await phonebookApi.registerNewUser(credentials);
@@ -21,7 +21,7 @@ export const register = createAsyncThunk<
 export const login = createAsyncThunk<
   IAuthFetchingData,
   ILoginCredentials,
-  { rejectValue: string | null }
+  { rejectValue: RejectValueType }
 >('auth/login', async (credentials: ILoginCredentials, { rejectWithValue }) => {
   try {
     const data = await phonebookApi.loginUser(credentials);
@@ -32,7 +32,7 @@ export const login = createAsyncThunk<
   }
 });
 
-export const logout = createAsyncThunk<void, void, { rejectValue: string | null }>(
+export const logout = createAsyncThunk<void, void, { rejectValue: RejectValueType }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
@@ -47,7 +47,7 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string | null 
 export const refreshUser = createAsyncThunk<
   IAuthFetchingData,
   void,
-  { rejectValue: string | null; state: RootState }
+  { rejectValue: RejectValueType; state: RootState }
 >('auth/refreshUser', async (_, { getState, rejectWithValue }) => {
   try {
     const token = getState().auth.token;

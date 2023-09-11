@@ -2,12 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from 'redux/store';
 import * as phonebookApi from 'services/phonebook-api';
-import { IContact, IContactId, IContactNameAndNumber } from 'types';
+import { IContact, IContactId, IContactNameAndNumber, RejectValueType } from 'types';
 
 export const fetchContacts = createAsyncThunk<
   IContact[],
   void,
-  { rejectValue: string | null; state: RootState }
+  { rejectValue: RejectValueType; state: RootState }
 >('phonebook/fetchContacts', async (_, { getState, rejectWithValue }) => {
   try {
     const token = getState().auth.token;
@@ -22,7 +22,7 @@ export const fetchContacts = createAsyncThunk<
 export const postContact = createAsyncThunk<
   IContact,
   IContactNameAndNumber,
-  { rejectValue: string | null }
+  { rejectValue: RejectValueType }
 >('phonebook/postContact', async ({ name, number }: IContactNameAndNumber, { rejectWithValue }) => {
   try {
     const id = await phonebookApi.postContact({ name, number });
@@ -33,7 +33,7 @@ export const postContact = createAsyncThunk<
   }
 });
 
-export const deleteContact = createAsyncThunk<IContactId, string, { rejectValue: string | null }>(
+export const deleteContact = createAsyncThunk<IContactId, string, { rejectValue: RejectValueType }>(
   'phonebook/deleteContact',
   async (id: string, { rejectWithValue }) => {
     try {

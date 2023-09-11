@@ -22,19 +22,18 @@ const authPersistConfig = {
   whitelist: ['token'],
 };
 
-// @ts-ignore
-const middleware = getDefaultMiddleware => [
-  ...getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
-  logger,
-];
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
 
 export const store = configureStore({
-  reducer: { auth: persistReducer(authPersistConfig, authReducer), contacts: contactsReducer },
-  middleware,
+  reducer: { auth: authPersistedReducer, contacts: contactsReducer },
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+    logger,
+  ],
   devTools: isDevelopment,
 });
 
