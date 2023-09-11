@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { RootState } from 'redux/store';
+import { AppDispatch, RootState } from 'redux/store';
 import * as phonebookApi from 'services/phonebook-api';
 import { IContact, IContactId, IContactNameAndNumber, RejectValueType } from 'types';
 
@@ -22,7 +22,7 @@ export const fetchContacts = createAsyncThunk<
 export const postContact = createAsyncThunk<
   IContact,
   IContactNameAndNumber,
-  { rejectValue: RejectValueType }
+  { rejectValue: RejectValueType; dispatch: AppDispatch }
 >('phonebook/postContact', async ({ name, number }: IContactNameAndNumber, { rejectWithValue }) => {
   try {
     const id = await phonebookApi.postContact({ name, number });
