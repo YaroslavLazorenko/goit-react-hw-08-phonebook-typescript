@@ -2,13 +2,10 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import Button from '@mui/material/Button';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
 import styles from './ContactItem.module.css';
+import { IContact } from 'types';
 
 interface ContactItemProps {
-    contact: {
-        id: string,
-        name: string,
-        number: string,
-    }
+    contact: IContact,
 }
 
 const ContactItem: React.FC<ContactItemProps> = ({ contact: {id, name, number} }) => {

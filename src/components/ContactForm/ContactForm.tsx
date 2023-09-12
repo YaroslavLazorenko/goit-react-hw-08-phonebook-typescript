@@ -17,7 +17,7 @@ const ContactForm: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleChange = ({ target}: React.ChangeEvent<HTMLInputElement>):void => {
+  const handleChange = ({ target}: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = target;
 
     switch (name) {
@@ -32,19 +32,19 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  const resetForm = ():void => {
+  const resetForm = (): void => {
     setName(INITIAL_FORM_LOCAL_STATE.name);
     setNumber(INITIAL_FORM_LOCAL_STATE.number);
   };
 
-  const addContact = (name:string, number:string) => dispatch(phonebookOperations.postContact({ name, number }));
+  const addContact = (name: string, number: string) => dispatch(phonebookOperations.postContact({ name, number }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const isContactAlreadySaved = contacts.find(
+    const isContactAlreadySaved = Boolean(contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
-    );
+    ));
 
     if (isContactAlreadySaved) {
       showMessage(`${name} is already in contacts.`);
