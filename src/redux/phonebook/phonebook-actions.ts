@@ -1,3 +1,3 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const changeFilter = createAction('phonebook/changeFilter');
+export const changeFilter = createAction<string>('phonebook/changeFilter');
