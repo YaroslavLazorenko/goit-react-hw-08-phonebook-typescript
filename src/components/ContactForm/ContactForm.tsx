@@ -39,7 +39,7 @@ const ContactForm: React.FC = () => {
 
   const addContact = (name: string, number: string) => dispatch(phonebookOperations.postContact({ name, number }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
     const isContactAlreadySaved = Boolean(contacts.find(
