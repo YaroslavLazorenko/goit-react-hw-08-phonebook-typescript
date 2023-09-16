@@ -8,8 +8,8 @@ import { useAppDispatch } from 'hooks';
 const INITIAL_FORM_LOCAL_STATE = { email: '', password: '' };
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>(INITIAL_FORM_LOCAL_STATE.email);
+  const [password, setPassword] = useState<string>(INITIAL_FORM_LOCAL_STATE.password);
 
   const dispatch = useAppDispatch();
 

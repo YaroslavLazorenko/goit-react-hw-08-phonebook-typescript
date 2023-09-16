@@ -9,15 +9,15 @@ import styles from './ContactForm.module.css';
 const INITIAL_FORM_LOCAL_STATE = { name: '', number: '' };
 
 const ContactForm: React.FC = () => {
-  const [name, setName] = useState<string>('');
-  const [number, setNumber] = useState<string>('');
+  const [name, setName] = useState<string>(INITIAL_FORM_LOCAL_STATE.name);
+  const [number, setNumber] = useState<string>(INITIAL_FORM_LOCAL_STATE.number);
 
   const contacts = useAppSelector(phonebookSelectors.getContactsItems);
   const isLoading = useAppSelector(phonebookSelectors.getLoadingStatus);
 
   const dispatch = useAppDispatch();
 
-  const handleChange = ({ target}: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = target;
 
     switch (name) {
@@ -37,14 +37,15 @@ const ContactForm: React.FC = () => {
     setNumber(INITIAL_FORM_LOCAL_STATE.number);
   };
 
-  const addContact = (name: string, number: string) => dispatch(phonebookOperations.postContact({ name, number }));
+  const addContact = (name: string, number: string) =>
+    dispatch(phonebookOperations.postContact({ name, number }));
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    const isContactAlreadySaved = Boolean(contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase(),
-    ));
+    const isContactAlreadySaved = Boolean(
+      contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase()),
+    );
 
     if (isContactAlreadySaved) {
       showMessage(`${name} is already in contacts.`);
@@ -67,7 +68,7 @@ const ContactForm: React.FC = () => {
         name="name"
         placeholder="Enter name"
         inputProps={{
-          pattern:"^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+          pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
         }}
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
@@ -85,7 +86,7 @@ const ContactForm: React.FC = () => {
         name="number"
         inputProps={{
           // eslint-disable-next-line no-useless-escape
-          pattern: "\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}",
+          pattern: '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
         }}
         placeholder="Enter phone"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
