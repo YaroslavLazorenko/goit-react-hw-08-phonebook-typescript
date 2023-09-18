@@ -25,6 +25,11 @@ export interface IAuthFetchingData {
   token: string | null;
 }
 
+export interface IAuthRefreshUser {
+  name: string | null;
+  email: string | null;
+}
+
 export type RejectValueType = string | null;
 
 export type TokenType = string | null;

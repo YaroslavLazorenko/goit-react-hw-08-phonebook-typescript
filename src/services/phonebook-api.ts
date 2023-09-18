@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   IAuthFetchingData,
+  IAuthRefreshUser,
   IContact,
   IContactId,
   IContactNameAndNumber,
@@ -39,9 +40,9 @@ export async function logoutUser(): Promise<void> {
   token.unset();
 }
 
-export async function refreshUser(persistedToken: TokenType): Promise<IAuthFetchingData> {
+export async function refreshUser(persistedToken: TokenType): Promise<IAuthRefreshUser> {
   token.set(persistedToken);
-  const { data } = await axios.get<IAuthFetchingData>('/users/current');
+  const { data } = await axios.get<IAuthRefreshUser>('/users/current');
   return data;
 }
 
