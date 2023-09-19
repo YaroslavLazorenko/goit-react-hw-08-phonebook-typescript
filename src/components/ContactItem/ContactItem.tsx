@@ -5,10 +5,10 @@ import styles from './ContactItem.module.css';
 import { IContact } from 'types';
 
 interface ContactItemProps {
-    contact: IContact,
+  contact: IContact;
 }
 
-const ContactItem: React.FC<ContactItemProps> = ({ contact: {id, name, number} }) => {
+const ContactItem: React.FC<ContactItemProps> = ({ contact: { id, name, number } }) => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(phonebookSelectors.getLoadingStatus);
 

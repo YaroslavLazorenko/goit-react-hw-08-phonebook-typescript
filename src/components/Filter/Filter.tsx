@@ -17,7 +17,9 @@ const Filter: React.FC = () => {
         name="filter"
         placeholder="Enter name"
         value={filter}
-        onChange={(e:React.ChangeEvent<HTMLInputElement>) => dispatch(phonebookActions.changeFilter(e.target.value))}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch(phonebookActions.changeFilter(e.target.value))
+        }
         size="small"
       />
     </>

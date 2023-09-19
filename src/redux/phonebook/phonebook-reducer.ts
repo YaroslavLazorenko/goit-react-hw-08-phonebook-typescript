@@ -16,9 +16,9 @@ const initialErrorState: ErrorState = null;
 
 const itemsReducer = createReducer(initialItemsState, builder => {
   builder
-    .addCase(deleteContact.fulfilled, (state, { payload }) => {
-      state.filter(({ id }) => id !== payload.id);
-    })
+    .addCase(deleteContact.fulfilled, (state, { payload }) =>
+      state.filter(({ id }) => id !== payload.id),
+    )
     .addCase(fetchContacts.fulfilled, (_, { payload }) => payload)
     .addCase(postContact.fulfilled, (state, { payload }) => [...state, payload]);
 });

@@ -7,7 +7,7 @@ import { IContact, IContactId, IContactNameAndNumber, RejectValueType } from 'ty
 export const fetchContacts = createAsyncThunk<
   IContact[],
   void,
-  { rejectValue: RejectValueType; state: RootState }
+  { state: RootState; rejectValue: RejectValueType }
 >('phonebook/fetchContacts', async (_, { getState, rejectWithValue }) => {
   try {
     const token = getState().auth.token;
@@ -22,7 +22,7 @@ export const fetchContacts = createAsyncThunk<
 export const postContact = createAsyncThunk<
   IContact,
   IContactNameAndNumber,
-  { rejectValue: RejectValueType; dispatch: AppDispatch }
+  { state: RootState; rejectValue: RejectValueType; dispatch: AppDispatch }
 >('phonebook/postContact', async ({ name, number }: IContactNameAndNumber, { rejectWithValue }) => {
   try {
     const id = await phonebookApi.postContact({ name, number });
@@ -33,15 +33,16 @@ export const postContact = createAsyncThunk<
   }
 });
 
-export const deleteContact = createAsyncThunk<IContactId, string, { rejectValue: RejectValueType }>(
-  'phonebook/deleteContact',
-  async (id: string, { rejectWithValue }) => {
-    try {
-      await phonebookApi.deleteContact(id);
-      return { id };
-    } catch (error) {
-      let err = error as AxiosError;
-      return rejectWithValue(err.message);
-    }
-  },
-);
+export const deleteContact = createAsyncThunk<
+  IContactId,
+  string,
+  { state: RootState; rejectValue: RejectValueType }
+>('phonebook/deleteContact', async (id: string, { rejectWithValue }) => {
+  try {
+    await phonebookApi.deleteContact(id);
+    return { id };
+  } catch (error) {
+    let err = error as AxiosError;
+    return rejectWithValue(err.message);
+  }
+});
