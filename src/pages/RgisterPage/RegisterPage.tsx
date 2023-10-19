@@ -19,7 +19,12 @@ const RegisterPage = () => {
 
     switch (name) {
       case 'name':
-        setName(value);
+        if (
+          value.match("^[a-zA-Zа-яА-ЯёЁіІїЇ '-]+(([' -][a-zA-Zа-яА-ЯёЁіІїЇ ])]*)*$") != null ||
+          value === ''
+        ) {
+          setName(value);
+        }
         break;
       case 'email':
         setEmail(value);
@@ -62,10 +67,7 @@ const RegisterPage = () => {
           type="text"
           name="name"
           placeholder="Enter username"
-          inputProps={{
-            pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
-          }}
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          title="Name may contain letters, apostrophe, dash, spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           value={name}
           onChange={handleChange}

@@ -22,13 +22,20 @@ const ContactForm: React.FC = () => {
 
     switch (name) {
       case 'name':
-        setName(value);
+        if (
+          value.match("^[a-zA-Zа-яА-ЯёЁіІїЇ '-]+(([' -][a-zA-Zа-яА-ЯёЁіІїЇ ])]*)*$") != null ||
+          value === ''
+        ) {
+          setName(value);
+        }
         break;
       case 'number':
-        setNumber(value);
+        if (value.match('^[0-9()-]*$') != null || value === '') {
+          setNumber(value);
+        }
         break;
       default:
-        throw new Error('Unknown input field name');
+        throw new Error('ContactForm: Unknown input field name');
     }
   };
 
@@ -67,9 +74,6 @@ const ContactForm: React.FC = () => {
         type="text"
         name="name"
         placeholder="Enter name"
-        inputProps={{
-          pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
-        }}
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
         value={name}
@@ -84,10 +88,6 @@ const ContactForm: React.FC = () => {
         id="number"
         type="tel"
         name="number"
-        inputProps={{
-          // eslint-disable-next-line no-useless-escape
-          pattern: '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
-        }}
         placeholder="Enter phone"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
